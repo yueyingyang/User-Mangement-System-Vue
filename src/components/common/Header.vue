@@ -1,0 +1,84 @@
+<template>
+	<div class="header row">
+		<div class="header-left row">
+			<div class="collapse-btn">
+				<i class="el-icon-menu"></i>
+			</div>
+			<div class="logo hidden-xs-only">用户管理系统</div>
+		</div>
+		<div class="header-right row">
+			<!-- 用户头像 -->
+			<div class="user-avatar">
+				<img src="../../../static/img/avatar.png">
+			</div>
+
+			<!-- 用户名下拉菜单 -->
+			<el-dropdown class="user-name" @command="handleCommand">
+				<span>
+					<!-- {{username}} -->
+					erbuiii
+					<i class=" el-icon-caret-bottom"></i>
+				</span>
+				<el-dropdown-menu slot="dropdown">
+					<a href="https://github.com/erbuiii">
+						<el-dropdown-item>关于作者</el-dropdown-item>	
+					</a>
+					<a href="https://github.com/erbuiii">
+						<el-dropdown-item>项目仓库</el-dropdown-item>	
+					</a>
+					<el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
+				</el-dropdown-menu>
+			</el-dropdown>
+		</div>
+	</div>
+
+</template>
+<script>
+	import bus from '../common/bus.js'
+	export default {
+		methods: {
+			// 用户名下拉菜单事件
+			handleCommand(command) {
+				if (command == 'logout') {
+					localStorage.removeItem('ms_username');
+					this.$router.push('/login');
+				}
+			}
+		}
+	}
+</script>
+<style scoped>
+	.row {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	.header {
+		position: relative;
+		height: 70px;
+		color: #4da1ff;
+		font-size: 22px;
+		background: #fafbfc;
+	}
+
+	.header-left {
+		width: 250px;
+	}
+
+	.collapse-btn {
+		padding: 0 21px;
+		cursor: pointer;
+	}
+
+	.header-right {
+		position: absolute;
+		right: 0;
+		padding-right: 50px;
+	}
+
+	.header-right el-dropdown-menu a {
+		text-decoration: none;
+	}
+
+
+</style>
