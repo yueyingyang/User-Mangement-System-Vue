@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/dashborad'
+      redirect: '/dashboard'
     },
     {
       path: '/',
@@ -15,7 +15,7 @@ export default new Router({
       meta: { title: '自述文件' },
       children: [
       	{
-      		path: '/dashborad',
+      		path: '/dashboard',
       		component: resolve => require(['../components/page/Dashboard.vue'], resolve)
       	},
       	{

@@ -1,7 +1,8 @@
 <template>
 	<div class="header row">
 		<div class="header-left row">
-			<div class="collapse-btn">
+			<!-- 折叠按钮 -->
+			<div class="collapse-btn" @click="collapseBar">
 				<i class="el-icon-menu"></i>
 			</div>
 			<div class="logo hidden-xs-only">用户管理系统</div>
@@ -9,14 +10,13 @@
 		<div class="header-right row">
 			<!-- 用户头像 -->
 			<div class="user-avatar">
-				<img src="../../../static/img/avatar.png">
+				<img src="../../../static/img/new image - wdh7v.jpg">
 			</div>
 
 			<!-- 用户名下拉菜单 -->
 			<el-dropdown class="user-name" @command="handleCommand">
 				<span>
-					<!-- {{username}} -->
-					erbuiii
+					{{username}}
 					<i class=" el-icon-caret-bottom"></i>
 				</span>
 				<el-dropdown-menu slot="dropdown">
@@ -36,7 +36,24 @@
 <script>
 	import bus from '../common/bus.js'
 	export default {
+		data() {
+			return {
+				collapse: false,	//折叠的状态
+				name: 'erbuiii',
+			}
+		},
+		computed: {
+			username() {
+				let username = localStorage.getItem('ms_username');
+				return username ? username : this.name;
+			}
+		},
 		methods: {
+			// 侧边栏折叠
+			collapseBar() {
+				this.collapse = !this.collapse;
+				bus.$emit('collapse', this.collapse);
+			},
 			// 用户名下拉菜单事件
 			handleCommand(command) {
 				if (command == 'logout') {
@@ -44,21 +61,22 @@
 					this.$router.push('/login');
 				}
 			}
+		},
+		mounted() {
+			if (document.body.clientWidth < 900) {
+				this.collapseBar();
+			}
 		}
 	}
 </script>
 <style scoped>
-	.row {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
 	.header {
 		position: relative;
 		height: 70px;
 		color: #4da1ff;
 		font-size: 22px;
 		background: #fafbfc;
+		border-bottom: 1px solid #e7e9ea;
 	}
 
 	.header-left {
@@ -73,12 +91,20 @@
 	.header-right {
 		position: absolute;
 		right: 0;
-		padding-right: 50px;
+		padding-right: 25px;
 	}
 
-	.header-right el-dropdown-menu a {
-		text-decoration: none;
+	.user-avatar img {
+		display: block;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
 	}
+
+	.user-name {
+		margin-left: 20px;
+	}
+
 
 
 </style>
