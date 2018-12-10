@@ -15,12 +15,35 @@
 				</template>
 
 				<template v-else>
-					<el-menu-item :index="item.index" :key="item.index">
+					<el-menu-it  em :index="item.index" :key="item.index">
 						<i :class="item.icon"></i>
 						<span slot="title">
 							{{ item.title }}
 						</span>
-					</el-menu-item>
+					</el-menu-it>
+				</template>
+			</template>
+
+			<template v-for="item in newRouter[0].children" v-if="!item.hidden">
+				<template v-if="item.subs">
+					<el-submenu :index="item.index" :key="item.index">
+						<template slot="title">
+							<i :class="item.icon"></i>
+							<span slot="title">{{ item.title }}</span>
+						</template>
+						<el-menu-item v-for="(subItem,i) in item.subs" :index="subItem.index" :key="i">
+							{{ subItem.title }}
+						</el-menu-item>
+					</el-submenu>
+				</template>
+
+				<template v-else>
+					<el-menu-it  em :index="item. index" :key="item.index">
+						<i :class="item.icon"></i>
+						<span slot="title">
+							{{ item.title }}
+						</span>
+					</el-menu-it>
 				</template>
 			</template>
 		</el-menu>
@@ -69,7 +92,11 @@
 		computed: {
 			onRoutes() {
 				return this.$route.path.replace('/','');
-			}
+			},
+			
+			...mapGetters([
+				'newRouter'
+			])
 		},
 		created() {
             // 通过 Event Bus 进行组件间通信，来折叠侧边栏

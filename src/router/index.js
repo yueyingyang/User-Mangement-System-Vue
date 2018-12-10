@@ -10,24 +10,33 @@ export default new Router({
       redirect: '/dashboard'
     },
     {
-      path: '/',
-      component: resolve => require(['../components/common/Home.vue'], resolve),
-      meta: { title: '自述文件' },
-      children: [
-      	{
-      		path: '/dashboard',
-      		component: resolve => require(['../components/page/Dashboard.vue'], resolve)
-      	},
-      	{
-      		path: '/table',
-      		component: resolve => require(['../components/page/Table.vue'], resolve)
-      	}
-      ]
-    },
-    {
       path: '/login',
       component: resolve => require(['../components/page/Login.vue'], resolve)
     }
     
   ]
 })
+
+export const powerRouter = [
+  {
+    path: '/',
+    component: resolve => require(['../components/common/Home.vue'], resolve),
+    meta: { title: '自述文件' },
+    redirect: '/dashboard',
+    children: [
+      {
+        path: '/dashboard',
+        component: resolve => require(['../components/page/Dashboard.vue'], resolve),
+        meta: { title: '系统首页', role:"student"},
+      },
+      {
+        path: '/table',
+        component: resolve => require(['../components/page/Table.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/login',
+    component: resolve => require(['../components/page/Login.vue'], resolve)
+  }
+]
