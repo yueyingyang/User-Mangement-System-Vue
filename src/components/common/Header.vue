@@ -43,9 +43,8 @@
 			}
 		},
 		computed: {
-			username() {
-				let username = localStorage.getItem('ms_username');
-				return username ? username : this.name;
+			username(){
+				return this.$store.getters.userName;
 			}
 		},
 		methods: {
@@ -57,7 +56,7 @@
 			// 用户名下拉菜单事件
 			handleCommand(command) {
 				if (command == 'logout') {
-					localStorage.removeItem('ms_username');
+					this.$store.dispatch("logOut",'');
 					this.$router.push('/login');
 				}
 			}

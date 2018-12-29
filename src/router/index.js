@@ -27,11 +27,22 @@ export const powerRouter = [
       {
         path: '/dashboard',
         component: resolve => require(['../components/page/Dashboard.vue'], resolve),
-        meta: { title: '系统首页', role:"student"},
+        meta: {
+          title: '系统首页',
+          role: "student",
+          icon: 'el-icon-setting',
+          index:"dashboard"
+        },
       },
       {
         path: '/table',
-        component: resolve => require(['../components/page/Table.vue'], resolve)
+        component: resolve => require(['../components/page/Table.vue'], resolve),
+        meta: {
+          title: '表格',
+          role: "admin",
+          icon: 'el-icon-tickets',
+          index:"table"
+        },
       }
     ]
   },

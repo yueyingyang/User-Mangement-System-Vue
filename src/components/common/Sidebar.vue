@@ -1,7 +1,7 @@
 <template>
 	<div class="sidebar">
 		<el-menu :collapse="collapse" :default-active="onRoutes" active-text-color="#4da1ff" unique-opened router>
-			<template v-for="item in items">
+			<!-- <template v-for="item in items">
 				<template v-if="item.subs">
 					<el-submenu :index="item.index" :key="item.index">
 						<template slot="title">
@@ -15,21 +15,22 @@
 				</template>
 
 				<template v-else>
-					<el-menu-it  em :index="item.index" :key="item.index">
+					<el-menu-item :index="item.index" :key="item.index">
 						<i :class="item.icon"></i>
 						<span slot="title">
 							{{ item.title }}
 						</span>
-					</el-menu-it>
+					</el-menu-item>
 				</template>
-			</template>
+			</template> -->
 
 			<template v-for="item in newRouter[0].children" v-if="!item.hidden">
+				
 				<template v-if="item.subs">
-					<el-submenu :index="item.index" :key="item.index">
+					<el-submenu :index="item.meta.index" :key="item.meta.index">
 						<template slot="title">
-							<i :class="item.icon"></i>
-							<span slot="title">{{ item.title }}</span>
+							<i :class="item.meta.icon"></i>
+							<span slot="title">{{ item.meta.title }}</span>
 						</template>
 						<el-menu-item v-for="(subItem,i) in item.subs" :index="subItem.index" :key="i">
 							{{ subItem.title }}
@@ -38,19 +39,20 @@
 				</template>
 
 				<template v-else>
-					<el-menu-it  em :index="item. index" :key="item.index">
-						<i :class="item.icon"></i>
+					<el-menu-item :index="item.meta.index" :key="item.meta.index">
+						<i :class="item.meta.icon"></i>
 						<span slot="title">
-							{{ item.title }}
+							{{ item.meta.title }}
 						</span>
-					</el-menu-it>
+					</el-menu-item>
 				</template>
-			</template>
+			</template> 
 		</el-menu>
 	</div>
 </template>
 <script>
 	import bus from '../common/bus.js'
+	import { mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {

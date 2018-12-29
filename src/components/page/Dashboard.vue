@@ -102,7 +102,6 @@
         name: 'dashboard',
         data() {
             return {
-                name: localStorage.getItem('ms_username'),
                 todoList: [
                     {
                         title: '今天要修复100个bug',
@@ -133,7 +132,11 @@
         computed: {
             role() {
                 return this.name === 'admin' ? '超级管理员' : '普通用户';
+            },
+            name(){
+                return this.$store.getters.userName;
             }
+
         }
     }
 
